@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/register</title>
+</head>
+<body>
+  <h1>Register</h1>
+  <form action="/register" method="post">
+    {% csrf_token %}
+    {{registerForm.as_p}}
+    <input type="submit" value="Register">
+  </form>
+  <h1>Login</h1>
+  <form action="/login" method="post">
+    {% csrf_token %}
+    {{loginForm.as_p}}
+    <input type="submit" value="Login">
+  </form>
+</body>
+</html>
