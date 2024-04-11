@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from .forms import *
 # Create your views here.
 
@@ -20,7 +21,7 @@ def register(request):
     if bound_user.is_valid():
       new_user = bound_user.save()
       login(request, new_user)
-      return render(request, 'success.html')
+      return redirect('/success')
     
   return redirect('/')
   
@@ -33,6 +34,10 @@ def login_user(request):
       authenticated_user = authenticate( username=request.POST['username'], password=request.POST['password'])
       if authenticated_user:
         login(request, authenticated_user)
-        return render(request, 'success.html')
+        return redirect('/success')
   
   return redirect('/')
+
+@login_required(login_url='/')
+def login_success(request):
+  return render(request, 'success.html')
