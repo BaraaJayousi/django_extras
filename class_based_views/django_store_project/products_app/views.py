@@ -8,12 +8,6 @@ from .models import Product
 def index(request):
   return redirect('/products')
 
-def delete_product(request, id):
-  if request.method == 'POST':
-    Product.objects.filter(id=id).first().delete()
-    return redirect('/')
-
-
 class Products(View):
   render_template = "products.html"
   product_form = ProductForm()
