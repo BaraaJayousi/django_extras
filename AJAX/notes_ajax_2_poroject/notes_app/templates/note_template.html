@@ -1,0 +1,30 @@
+{% if notes %}
+  {% for note in notes %}
+  <div class="row border-bottom my-3 mx-0">
+    <div class="row mb-3 justify-content-between">
+      <div class="col">
+        <h5>{{note.title}}</h5>
+      </div>
+      <div class="col text-end">
+        <form action="/" method="post" id="delete-note">
+          {% csrf_token %}
+          <input type="hidden" name="note_id" value="{{note.id}}">
+          <input type="hidden" name="action" value="delete_note">
+          <input type="submit" class="btn btn-danger" value="Delete">
+        </form>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <form action="/" method="post" id="edit-note">
+        {% csrf_token %}
+        <input type="hidden" name="note_id" value="{{note.id}}">
+        <input type="hidden" name="action" value="edit_note">
+        <textarea class="form-control text-bg-light" name="description" readonly placeholder="click on me to add some description...">{{note.description}}</textarea>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+  <h2 class="text-danger my-3 border-bottom">No Notes were found, Add some below</h2>
+
+{%  endif %}
